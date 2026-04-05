@@ -64,15 +64,11 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 "logRegistrationEvent" -> {
                     AdaptiveAnalytics.logRegistrationEvent(
                         RegistrationEvent(
-                            userId        = call.int("userId"),
-                            userEmail     = call.argument("userEmail")!!,
-                            userFullName  = call.argument("userFullName")!!,
-                            clientId      = call.argument("clientId")!!,
-                            eventTimestamp= call.long("eventTimestamp"),
-                            productId     = call.int("productId"),
-                            ipAddress     = call.argument("ipAddress")!!,
-                            userAgent     = call.argument("userAgent")!!,
-                            phoneNumber   = call.argument("phoneNumber")!!,
+                            userId       = call.argument("userId")!!,
+                            userEmail    = call.argument("userEmail")!!,
+                            userFullName = call.argument("userFullName")!!,
+                            productId    = call.int("productId"),
+                            phoneNumber  = call.argument("phoneNumber")!!,
                         )
                     )
                     result.success(null)
@@ -81,14 +77,10 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 "logLoginEvent" -> {
                     AdaptiveAnalytics.logLoginEvent(
                         LoginEvent(
-                            userId        = call.int("userId"),
-                            userEmail     = call.argument("userEmail")!!,
-                            userFullName  = call.argument("userFullName")!!,
-                            clientId      = call.argument("clientId")!!,
-                            eventTimestamp= call.long("eventTimestamp"),
-                            ipAddress     = call.argument("ipAddress")!!,
-                            userAgent     = call.argument("userAgent")!!,
-                            productId     = call.int("productId"),
+                            userId       = call.argument("userId")!!,
+                            userEmail    = call.argument("userEmail")!!,
+                            userFullName = call.argument("userFullName")!!,
+                            productId    = call.int("productId"),
                         )
                     )
                     result.success(null)

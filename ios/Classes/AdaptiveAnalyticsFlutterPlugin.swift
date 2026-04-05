@@ -21,28 +21,20 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
 
         case "logRegistrationEvent":
             let event = RegistrationEvent(
-                userId:         (args["userId"]         as? NSNumber)?.intValue ?? 0,
-                userEmail:      args["userEmail"]        as? String ?? "",
-                userFullName:   args["userFullName"]     as? String ?? "",
-                clientId:       args["clientId"]         as? String ?? "",
-                eventTimestamp: (args["eventTimestamp"]  as? NSNumber)?.intValue ?? 0,
-                productId:      (args["productId"]       as? NSNumber)?.intValue ?? 0,
-                ipAddress:      args["ipAddress"]        as? String ?? "",
-                userAgent:      args["userAgent"]        as? String ?? "",
-                phoneNumber:    args["phoneNumber"]      as? String ?? ""
+                userId:       (args["userId"]   as? NSNumber)?.intValue ?? 0,
+                userEmail:     args["userEmail"]  as? String ?? "",
+                userFullName:  args["userFullName"] as? String ?? "",
+                productId:    (args["productId"] as? NSNumber)?.intValue ?? 0,
+                phoneNumber:   args["phoneNumber"] as? String ?? ""
             )
             Task { await analytics.logRegistrationEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logLoginEvent":
             let event = LoginEvent(
-                userId:         (args["userId"]         as? NSNumber)?.intValue ?? 0,
-                userEmail:      args["userEmail"]        as? String ?? "",
-                userFullName:   args["userFullName"]     as? String ?? "",
-                clientId:       args["clientId"]         as? String ?? "",
-                eventTimestamp: (args["eventTimestamp"]  as? NSNumber)?.intValue ?? 0,
-                ipAddress:      args["ipAddress"]        as? String ?? "",
-                userAgent:      args["userAgent"]        as? String ?? "",
-                productId:      (args["productId"]       as? NSNumber)?.intValue ?? 0
+                userId:       (args["userId"]   as? NSNumber)?.intValue ?? 0,
+                userEmail:     args["userEmail"]  as? String ?? "",
+                userFullName:  args["userFullName"] as? String ?? "",
+                productId:    (args["productId"] as? NSNumber)?.intValue ?? 0
             )
             Task { await analytics.logLoginEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
