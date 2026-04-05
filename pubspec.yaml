@@ -1,12 +1,12 @@
-name: adaptive_analytics_flutter
+name: adaptive_analytics
 description: >-
   Flutter plugin for the Adaptive SDK Analytics module. Logs learning events
   (badge earnings, quiz submissions, grade changes, course enrolments, etc.)
   to the Adaptive e-learning platform.
-version: 1.0.0
-homepage: https://github.com/adaptivesdk/adaptive_analytics_flutter
-repository: https://github.com/adaptivesdk/adaptive_analytics_flutter
-issue_tracker: https://github.com/adaptivesdk/adaptive_analytics_flutter/issues
+version: 1.0.1
+homepage: https://github.com/adaptivesdk/adaptive_analytics
+repository: https://github.com/adaptivesdk/adaptive_analytics
+issue_tracker: https://github.com/adaptivesdk/adaptive_analytics/issues
 
 topics:
   - adaptive
@@ -31,5 +31,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.adaptive.analytics_flutter
+        package: com.adaptive.analytics
+        pluginClass: AdaptiveAnalyticsFlutterPlugin
+      ios:
         pluginClass: AdaptiveAnalyticsFlutterPlugin
