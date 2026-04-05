@@ -21,20 +21,20 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
 
         case "logRegistrationEvent":
             let event = RegistrationEvent(
-                userId:       (args["userId"]   as? NSNumber)?.intValue ?? 0,
-                userEmail:     args["userEmail"]  as? String ?? "",
-                userFullName:  args["userFullName"] as? String ?? "",
-                productId:    (args["productId"] as? NSNumber)?.intValue ?? 0,
-                phoneNumber:   args["phoneNumber"] as? String ?? ""
+                userId:       Int(args["userId"] as? String ?? "0") ?? 0,
+                userEmail:    "",
+                userFullName: args["userName"]   as? String ?? "",
+                productId:    0,
+                phoneNumber:  args["userMobile"] as? String ?? ""
             )
             Task { await analytics.logRegistrationEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logLoginEvent":
             let event = LoginEvent(
-                userId:       (args["userId"]   as? NSNumber)?.intValue ?? 0,
-                userEmail:     args["userEmail"]  as? String ?? "",
-                userFullName:  args["userFullName"] as? String ?? "",
-                productId:    (args["productId"] as? NSNumber)?.intValue ?? 0
+                userId:       Int(args["userId"] as? String ?? "0") ?? 0,
+                userEmail:    "",
+                userFullName: "",
+                productId:    0
             )
             Task { await analytics.logLoginEvent(data: event); DispatchQueue.main.async { result(nil) } }
 

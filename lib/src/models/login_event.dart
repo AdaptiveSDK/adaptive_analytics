@@ -1,21 +1,32 @@
+/// Login method used when signing in.
+enum LoginMethod {
+  emailAndPassword,
+  google,
+  facebook,
+  apple,
+  x,
+  phoneAndPassword;
+
+  String toNativeString() => name
+      .replaceAllMapped(
+        RegExp(r'[A-Z]'),
+        (m) => '_${m.group(0)}',
+      )
+      .toUpperCase();
+}
+
 /// Event data for when a user logs in.
 class LoginEvent {
-  final int userId;
-  final String userEmail;
-  final String userFullName;
-  final int productId;
+  final LoginMethod loginMethod;
+  final String userId;
 
   const LoginEvent({
+    required this.loginMethod,
     required this.userId,
-    required this.userEmail,
-    required this.userFullName,
-    required this.productId,
   });
 
   Map<String, dynamic> toMap() => {
-        'userId': userId,
-        'userEmail': userEmail,
-        'userFullName': userFullName,
-        'productId': productId,
-      };
+    'loginMethod': loginMethod.toNativeString(),
+    'userId': userId,
+  };
 }

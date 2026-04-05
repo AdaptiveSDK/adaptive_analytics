@@ -11,6 +11,7 @@ import com.adaptive.analytics.events.EnrollmentMethod
 import com.adaptive.analytics.events.GradeChangeEvent
 import com.adaptive.analytics.events.GradeStatus
 import com.adaptive.analytics.events.LoginEvent
+import com.adaptive.analytics.events.LoginMethod
 import com.adaptive.analytics.events.ModuleCompletionEvent
 import com.adaptive.analytics.events.ModuleCompletionState
 import com.adaptive.analytics.events.QuizSubmissionEvent
@@ -18,6 +19,7 @@ import com.adaptive.analytics.events.RegistrationEvent
 import com.adaptive.analytics.events.StudentInactivityEvent
 import com.adaptive.analytics.events.SubmissionStatus
 import com.adaptive.analytics.events.UserPropertiesEvent
+import com.adaptive.analytics.events.UserType
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -64,11 +66,11 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 "logRegistrationEvent" -> {
                     AdaptiveAnalytics.logRegistrationEvent(
                         RegistrationEvent(
-                            userId       = call.argument("userId")!!,
-                            userEmail    = call.argument("userEmail")!!,
-                            userFullName = call.argument("userFullName")!!,
-                            productId    = call.int("productId"),
-                            phoneNumber  = call.argument("phoneNumber")!!,
+                            registrationMethod = LoginMethod.valueOf(call.argument("registrationMethod")!!),
+                            userId             = call.argument("userId")!!,
+                            userName           = call.argument("userName")!!,
+                            userMobile         = call.argument("userMobile")!!,
+                            userType           = UserType.valueOf(call.argument("userType")!!),
                         )
                     )
                     result.success(null)
@@ -77,10 +79,8 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 "logLoginEvent" -> {
                     AdaptiveAnalytics.logLoginEvent(
                         LoginEvent(
-                            userId       = call.argument("userId")!!,
-                            userEmail    = call.argument("userEmail")!!,
-                            userFullName = call.argument("userFullName")!!,
-                            productId    = call.int("productId"),
+                            loginMethod = LoginMethod.valueOf(call.argument("loginMethod")!!),
+                            userId      = call.argument("userId")!!,
                         )
                     )
                     result.success(null)
