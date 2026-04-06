@@ -12,9 +12,9 @@ enum SubmissionStatus {
 
 /// Event data for an assignment submission action.
 class AssignmentSubmissionEvent {
-  final String courseId;
+  final int courseId;
   final String courseName;
-  final String assignmentId;
+  final int assignmentId;
   final String assignmentName;
 
   /// Whether the submission was late.

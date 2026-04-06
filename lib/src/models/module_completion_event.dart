@@ -18,8 +18,8 @@ enum ModuleCompletionState {
 
 /// Event data for when a student completes a single course module.
 class ModuleCompletionEvent {
-  final String courseId;
-  final String moduleId;
+  final int courseId;
+  final int moduleId;
   final String courseName;
   final String moduleName;
   final ModuleCompletionState completionState;

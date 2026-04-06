@@ -23,11 +23,11 @@ class UserPropertiesEvent {
   });
 
   Map<String, dynamic> toMap() => {
-        'yearId': yearId,
-        'fcmToken': fcmToken,
-        'userType': userType,
-        'schoolLangType': schoolLangType,
-        'registrationDate': registrationDate,
-        'parentId': parentId,
-      };
+    'yearId': yearId,
+    'fcmToken': fcmToken,
+    'userType': userType,
+    'schoolLangType': schoolLangType,
+    'registrationDate': registrationDate,
+    'parentId': parentId,
+  };
 }

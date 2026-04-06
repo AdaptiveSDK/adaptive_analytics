@@ -8,10 +8,7 @@ enum RegistrationMethod {
   phoneAndPassword;
 
   String toNativeString() => name
-      .replaceAllMapped(
-        RegExp(r'[A-Z]'),
-        (m) => '_${m.group(0)}',
-      )
+      .replaceAllMapped(RegExp(r'[A-Z]'), (m) => '_${m.group(0)}')
       .toUpperCase();
 }
 

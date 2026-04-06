@@ -1,8 +1,9 @@
-# adaptive_analytics_flutter
+# adaptive_analytics
 
-[![pub version](https://img.shields.io/pub/v/adaptive_analytics_flutter.svg)](https://pub.dev/packages/adaptive_analytics_flutter)
+[![pub version](https://img.shields.io/pub/v/adaptive_analytics.svg)](https://pub.dev/packages/adaptive_analytics)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-android-green.svg)](https://pub.dev/packages/adaptive_analytics_flutter)
+[![Platform Android](https://img.shields.io/badge/platform-android-green.svg)](https://pub.dev/packages/adaptive_analytics)
+[![Platform iOS](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://pub.dev/packages/adaptive_analytics)
 
 Flutter plugin for the **Adaptive SDK Analytics** module. Tracks learning-related events and sends them to the Adaptive e-learning platform backend.
 
@@ -19,8 +20,8 @@ Supported events:
 | `AssignmentSubmissionEvent` | A student submitted an assignment |
 | `StudentInactivityEvent` | A student has been inactive for N days |
 
-> **Requires** [`adaptive_core_flutter`](https://pub.dev/packages/adaptive_core_flutter) to be initialized first.  
-> **Android only.**
+> **Requires** [`adaptive_core`](https://pub.dev/packages/adaptive_core) to be initialized first.  
+> Supports **Android** and **iOS**.
 
 ---
 
@@ -46,7 +47,8 @@ Supported events:
 | Flutter | 3.10.0 |
 | Dart | 3.0.0 |
 | Android `minSdk` | 24 (Android 7.0) |
-| `adaptive_core_flutter` | 1.0.0 |
+| iOS minimum | 15.0 |
+| `adaptive_core` | 1.0.0 |
 
 ---
 
@@ -54,8 +56,8 @@ Supported events:
 
 ```yaml
 dependencies:
-  adaptive_core_flutter: ^1.0.0
-  adaptive_analytics_flutter: ^1.0.0
+  adaptive_core: ^1.0.0
+  adaptive_analytics: ^1.0.0
 ```
 
 ```bash
@@ -71,8 +73,8 @@ flutter pub get
 You **must** initialize the Core SDK and log in a user before logging any event:
 
 ```dart
-import 'package:adaptive_core_flutter/adaptive_core_flutter.dart';
-import 'package:adaptive_analytics_flutter/adaptive_analytics_flutter.dart';
+import 'package:adaptive_core/adaptive_core.dart';
+import 'package:adaptive_analytics/adaptive_analytics.dart';
 
 // In main() or your app's init logic:
 await AdaptiveCore.initialize(clientId: 'YOUR_API_KEY');

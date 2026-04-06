@@ -7,7 +7,7 @@ class StudentInactivityEvent {
   final int inactiveDays;
 
   /// The course ID the student last accessed (may be empty).
-  final String lastAccessedCourseId;
+  final int lastAccessedCourseId;
 
   const StudentInactivityEvent({
     required this.lastLoginTimestamp,

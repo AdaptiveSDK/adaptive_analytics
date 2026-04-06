@@ -4,12 +4,9 @@ import 'models/badge_earned_event.dart';
 import 'models/course_completion_event.dart';
 import 'models/course_enrollment_event.dart';
 import 'models/grade_change_event.dart';
-import 'models/login_event.dart';
 import 'models/module_completion_event.dart';
 import 'models/quiz_submission_event.dart';
-import 'models/registration_event.dart';
 import 'models/student_inactivity_event.dart';
-import 'models/user_properties_event.dart';
 import 'adaptive_analytics_exception.dart';
 
 ///
@@ -30,18 +27,6 @@ class AdaptiveAnalytics {
   static final MethodChannel _channel = MethodChannel('adaptive_analytics');
 
   AdaptiveAnalytics._();
-
-  /// Logs a user registration event.
-  static Future<void> logRegistrationEvent(RegistrationEvent event) =>
-      _log('logRegistrationEvent', event.toMap());
-
-  /// Logs a user login event.
-  static Future<void> logLoginEvent(LoginEvent event) =>
-      _log('logLoginEvent', event.toMap());
-
-  /// Logs a user properties event.
-  static Future<void> logUserPropertiesEvent(UserPropertiesEvent event) =>
-      _log('logUserPropertiesEvent', event.toMap());
 
   /// Logs a grade change event.
   static Future<void> logGradeChangeEvent(GradeChangeEvent event) =>

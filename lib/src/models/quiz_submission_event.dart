@@ -1,8 +1,8 @@
 /// Event data for when a student submits a quiz attempt.
 class QuizSubmissionEvent {
-  final String courseId;
+  final int courseId;
   final String courseName;
-  final String quizId;
+  final int quizId;
   final String quizName;
 
   /// Grade achieved on this attempt (0–[maxGrade]).

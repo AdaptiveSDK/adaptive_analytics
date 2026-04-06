@@ -9,7 +9,7 @@ enum EnrollmentMethod {
 
 /// Event data for when a student enrolls in a course.
 class CourseEnrollmentEvent {
-  final String courseId;
+  final int courseId;
   final String courseName;
   final EnrollmentMethod enrollmentMethod;
 

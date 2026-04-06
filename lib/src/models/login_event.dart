@@ -8,10 +8,7 @@ enum LoginMethod {
   phoneAndPassword;
 
   String toNativeString() => name
-      .replaceAllMapped(
-        RegExp(r'[A-Z]'),
-        (m) => '_${m.group(0)}',
-      )
+      .replaceAllMapped(RegExp(r'[A-Z]'), (m) => '_${m.group(0)}')
       .toUpperCase();
 }
 
@@ -20,10 +17,7 @@ class LoginEvent {
   final LoginMethod loginMethod;
   final String userId;
 
-  const LoginEvent({
-    required this.loginMethod,
-    required this.userId,
-  });
+  const LoginEvent({required this.loginMethod, required this.userId});
 
   Map<String, dynamic> toMap() => {
     'loginMethod': loginMethod.toNativeString(),

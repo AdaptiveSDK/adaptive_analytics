@@ -1,6 +1,6 @@
 /// Event data for when a student completes an entire course.
 class CourseCompletionEvent {
-  final String courseId;
+  final int courseId;
   final String courseName;
 
   /// Final grade achieved (0–100).

@@ -6,12 +6,12 @@ enum GradeStatus {
 
 /// Event data for when a student's grade changes.
 class GradeChangeEvent {
-  final String courseId;
+  final int courseId;
   final String courseName;
   final double previousGrade;
   final double newGrade;
   final double maxGrade;
-  final String gradeItemName;
+  final int gradeItemName;
   final GradeStatus status;
 
   const GradeChangeEvent({

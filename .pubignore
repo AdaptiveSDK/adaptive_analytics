@@ -1,0 +1,3 @@
+# Stale legacy files from previous naming scheme — exclude from published package
+android/src/main/kotlin/com/adaptive/analytics_flutter/
+lib/adaptive_analytics_flutter.dart

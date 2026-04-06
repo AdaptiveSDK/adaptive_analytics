@@ -10,16 +10,11 @@ import com.adaptive.analytics.events.CourseEnrollmentEvent
 import com.adaptive.analytics.events.EnrollmentMethod
 import com.adaptive.analytics.events.GradeChangeEvent
 import com.adaptive.analytics.events.GradeStatus
-import com.adaptive.analytics.events.LoginEvent
-import com.adaptive.analytics.events.LoginMethod
 import com.adaptive.analytics.events.ModuleCompletionEvent
 import com.adaptive.analytics.events.ModuleCompletionState
 import com.adaptive.analytics.events.QuizSubmissionEvent
-import com.adaptive.analytics.events.RegistrationEvent
 import com.adaptive.analytics.events.StudentInactivityEvent
 import com.adaptive.analytics.events.SubmissionStatus
-import com.adaptive.analytics.events.UserPropertiesEvent
-import com.adaptive.analytics.events.UserType
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -63,43 +58,6 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: Result) {
         try {
             when (call.method) {
-                "logRegistrationEvent" -> {
-                    AdaptiveAnalytics.logRegistrationEvent(
-                        RegistrationEvent(
-                            registrationMethod = LoginMethod.valueOf(call.argument("registrationMethod")!!),
-                            userId             = call.argument("userId")!!,
-                            userName           = call.argument("userName")!!,
-                            userMobile         = call.argument("userMobile")!!,
-                            userType           = UserType.valueOf(call.argument("userType")!!),
-                        )
-                    )
-                    result.success(null)
-                }
-
-                "logLoginEvent" -> {
-                    AdaptiveAnalytics.logLoginEvent(
-                        LoginEvent(
-                            loginMethod = LoginMethod.valueOf(call.argument("loginMethod")!!),
-                            userId      = call.argument("userId")!!,
-                        )
-                    )
-                    result.success(null)
-                }
-
-                "logUserPropertiesEvent" -> {
-                    AdaptiveAnalytics.logUserPropertiesEvent(
-                        UserPropertiesEvent(
-                            yearId          = call.int("yearId"),
-                            fcmToken        = call.argument("fcmToken")!!,
-                            userType        = call.argument("userType")!!,
-                            schoolLangType  = call.argument("schoolLangType")!!,
-                            registrationDate= call.long("registrationDate"),
-                            parentId        = call.int("parentId"),
-                        )
-                    )
-                    result.success(null)
-                }
-
                 "logGradeChangeEvent" -> {
                     AdaptiveAnalytics.logGradeChangeEvent(
                         GradeChangeEvent(

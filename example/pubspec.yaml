@@ -1,5 +1,5 @@
 name: adaptive_analytics_example
-description: Demonstrates usage of the adaptive_analytics_flutter plugin.
+description: Demonstrates usage of the adaptive_analytics plugin.
 publish_to: none
 version: 1.0.0+1
 
@@ -9,9 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  adaptive_core_flutter:
-    path: ../../adaptive_core_flutter
-  adaptive_analytics_flutter:
+  adaptive_core:
+    path: ../../adaptive_core
+  adaptive_analytics:
     path: ../
 
 dev_dependencies:
