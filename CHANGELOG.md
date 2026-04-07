@@ -1,4 +1,4 @@
-## 1.0.8
+## 1.0.7
 
 * Added `AdaptiveAnalytics.logLoginEvent` — log user login events.
 * Added `AdaptiveAnalytics.logRegistrationEvent` — log new user registration events.

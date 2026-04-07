@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'adaptive_analytics'
-  s.version          = '1.0.6'
+  s.version          = '1.0.7'
   s.summary          = 'Flutter iOS plugin for the Adaptive Analytics SDK.'
   s.description      = 'Logs learning events (grades, quizzes, assignments, badges, etc.) to the Adaptive e-learning platform.'
   s.homepage         = 'https://github.com/AdaptiveSDK/AdaptiveiOSSDK'
