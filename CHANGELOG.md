@@ -1,3 +1,16 @@
+## 1.0.8
+
+* Added `AdaptiveAnalytics.logUserPropertiesEvent` — log user profile properties (year, FCM token, user type, school language, registration date, parent ID).
+* Fixed iOS plugin to receive numeric IDs as `Int` instead of `String` for all events.
+* Updated iOS `logLoginEvent` and `logRegistrationEvent` to use proper enum mapping for `LoginMethod` and `UserType`.
+* Added `logLoginEvent` and `logRegistrationEvent` handlers to the Android plugin.
+* Moved iOS podspec to `ios/` directory and fixed `source_files` path.
+* Pinned `AdaptiveAnalytics` CocoaPod dependency to `~> 1.0.10`.
+* Lowered iOS minimum deployment target from 15.0 to 13.0.
+* Fixed podspec `license` path to correctly reference `../LICENSE`.
+* Fixed `MethodChannel` declaration to use `const` constructor.
+* Sorted `dev_dependencies` alphabetically in `pubspec.yaml`.
+
 ## 1.0.7
 
 * Added `AdaptiveAnalytics.logLoginEvent` — log user login events.

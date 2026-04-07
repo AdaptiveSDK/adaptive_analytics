@@ -20,22 +20,22 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
         switch call.method {
 
         case "logRegistrationEvent":
-            let event = RegistrationEvent(
-                userId:       Int(args["userId"] as? String ?? "0") ?? 0,
-                userEmail:    "",
-                userFullName: args["userName"]   as? String ?? "",
-                productId:    0,
-                phoneNumber:  args["userMobile"] as? String ?? ""
-            )
+            guard let registrationMethod = args["registrationMethod"] as? String,
+                  let userIdStr = args["userId"] as? String,
+                  let userName = args["userName"] as? String,
+                  let userMobile = args["userMobile"] as? String,
+                  let userType = args["userType"] as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
+            }
+            let event = RegistrationEvent(userId: Int(userIdStr) ?? 0, userType: userType == "parent" ? UserType.parent :userType == "teacher" ? UserType.teacher: UserType.student, userName: userName, registrationMethod: registrationMethod == "google" ? LoginMethod.google : registrationMethod == "x" ? LoginMethod.x : registrationMethod == "apple" ? LoginMethod.apple : registrationMethod == "facebook" ? LoginMethod.facebook : LoginMethod.emailAndPassword, userMobile: userMobile)
             Task { await analytics.logRegistrationEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logLoginEvent":
-            let event = LoginEvent(
-                userId:       Int(args["userId"] as? String ?? "0") ?? 0,
-                userEmail:    "",
-                userFullName: "",
-                productId:    0
-            )
+            guard let loginMethod = args["loginMethod"] as? String,
+                  let userId = args["userId"] as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
+            }
+            let event = LoginEvent(userId: Int(userId) ?? 0, loginMethod: loginMethod == "google" ? LoginMethod.google : loginMethod == "x" ? LoginMethod.x : loginMethod == "apple" ? LoginMethod.apple : loginMethod == "facebook" ? LoginMethod.facebook : LoginMethod.emailAndPassword)
             Task { await analytics.logLoginEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logUserPropertiesEvent":
@@ -50,23 +50,23 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             Task { await analytics.logUserPropertiesEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logCourseEnrollmentEvent":
-            guard let courseIdStr         = args["courseId"]         as? String,
+            guard let courseIdStr         = args["courseId"]         as? Int,
                   let courseName          = args["courseName"]        as? String,
                   let enrollmentMethodStr = args["enrollmentMethod"]  as? String,
                   let roleName            = args["roleName"]          as? String else {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
             }
             let enrollmentMethod: EnrollmentMethod = enrollmentMethodStr.uppercased() == "SELF" ? .selfEnrollment : .manualEnrollment
-            let event = CourseEnrollmentEvent(courseId: Int(courseIdStr) ?? 0, courseName: courseName, enrollmentMethod: enrollmentMethod, roleName: roleName)
+            let event = CourseEnrollmentEvent(courseId: courseIdStr, courseName: courseName, enrollmentMethod: enrollmentMethod, roleName: roleName)
             Task { await analytics.logCourseEnrollmentEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logCourseCompletionEvent":
-            guard let courseIdStr = args["courseId"] as? String,
+            guard let courseIdStr = args["courseId"] as? Int,
                   let courseName  = args["courseName"] as? String else {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
             }
             let event = CourseCompletionEvent(
-                courseId:            Int(courseIdStr) ?? 0,
+                courseId:            courseIdStr,
                 courseName:          courseName,
                 finalGrade:          (args["finalGrade"]         as? NSNumber)?.doubleValue ?? 0.0,
                 completionTimestamp: (args["completionTimestamp"] as? NSNumber)?.intValue   ?? 0
@@ -74,16 +74,16 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             Task { await analytics.logCourseCompletionEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logModuleCompletionEvent":
-            guard let courseIdStr = args["courseId"] as? String,
-                  let moduleIdStr = args["moduleId"] as? String,
+            guard let courseIdStr = args["courseId"] as? Int,
+                  let moduleIdStr = args["moduleId"] as? Int,
                   let courseName  = args["courseName"] as? String,
                   let moduleName  = args["moduleName"] as? String else {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
             }
             let stateValue = (args["completionState"] as? NSNumber)?.intValue ?? 0
             let event = ModuleCompletionEvent(
-                courseId:        Int(courseIdStr) ?? 0,
-                moduleId:        Int(moduleIdStr) ?? 0,
+                courseId:        courseIdStr,
+                moduleId:        moduleIdStr,
                 courseName:      courseName,
                 moduleName:      moduleName,
                 completionState: ModuleCompletionState(rawValue: stateValue) ?? .incomplete
@@ -91,34 +91,34 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             Task { await analytics.logModuleCompletionEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logGradeChangeEvent":
-            guard let courseIdStr      = args["courseId"]      as? String,
+            guard let courseIdStr      = args["courseId"]      as? Int,
                   let courseName       = args["courseName"]     as? String,
-                  let gradeItemNameStr = args["gradeItemName"]  as? String,
+                  let gradeItemNameStr = args["gradeItemName"]  as? Int,
                   let statusStr        = args["status"]         as? String else {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
             }
             let event = GradeChangeEvent(
-                courseId:      Int(courseIdStr)      ?? 0,
+                courseId:      courseIdStr,
                 courseName:    courseName,
                 previousGrade: (args["previousGrade"] as? NSNumber)?.doubleValue ?? 0.0,
                 newGrade:      (args["newGrade"]      as? NSNumber)?.doubleValue ?? 0.0,
                 maxGrade:      (args["maxGrade"]      as? NSNumber)?.doubleValue ?? 0.0,
-                gradeItemName: Int(gradeItemNameStr) ?? 0,
+                gradeItemName: gradeItemNameStr,
                 status:        GradeStatus(rawValue: statusStr.lowercased()) ?? .success
             )
             Task { await analytics.logGradeChangeEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logQuizSubmissionEvent":
-            guard let courseIdStr = args["courseId"] as? String,
+            guard let courseIdStr = args["courseId"] as? Int,
                   let courseName  = args["courseName"] as? String,
-                  let quizIdStr   = args["quizId"]    as? String,
+                  let quizIdStr   = args["quizId"]    as? Int,
                   let quizName    = args["quizName"]  as? String else {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
             }
             let event = QuizSubmissionEvent(
-                courseId:         Int(courseIdStr) ?? 0,
+                courseId:         courseIdStr,
                 courseName:       courseName,
-                quizId:           Int(quizIdStr)  ?? 0,
+                quizId:           quizIdStr,
                 quizName:         quizName,
                 grade:            (args["grade"]            as? NSNumber)?.doubleValue ?? 0.0,
                 maxGrade:         (args["maxGrade"]         as? NSNumber)?.doubleValue ?? 0.0,
@@ -128,17 +128,17 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             Task { await analytics.logQuizSubmissionEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logAssignmentSubmissionEvent":
-            guard let courseIdStr         = args["courseId"]         as? String,
+            guard let courseIdStr         = args["courseId"]         as? Int,
                   let courseName          = args["courseName"]        as? String,
-                  let assignmentIdStr     = args["assignmentId"]      as? String,
+                  let assignmentIdStr     = args["assignmentId"]      as? Int,
                   let assignmentName      = args["assignmentName"]    as? String,
                   let submissionStatusStr = args["submissionStatus"]  as? String else {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
             }
             let event = AssignmentSubmissionEvent(
-                courseId:         Int(courseIdStr)      ?? 0,
+                courseId:         courseIdStr,
                 courseName:       courseName,
-                assignmentId:     Int(assignmentIdStr)  ?? 0,
+                assignmentId:     assignmentIdStr,
                 assignmentName:   assignmentName,
                 isLate:           args["isLate"]         as? Bool ?? false,
                 attemptNumber:    (args["attemptNumber"]    as? NSNumber)?.intValue ?? 0,
@@ -162,13 +162,13 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             Task { await analytics.logBadgeEarnedEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logStudentInactivityEvent":
-            guard let lastAccessedCourseIdStr = args["lastAccessedCourseId"] as? String else {
+            guard let lastAccessedCourseIdStr = args["lastAccessedCourseId"] as? Int else {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing required fields", details: nil)); return
             }
             let event = StudentInactivityEvent(
                 lastLoginTimestamp:   (args["lastLoginTimestamp"] as? NSNumber)?.intValue ?? 0,
                 inactiveDays:         (args["inactiveDays"]       as? NSNumber)?.intValue ?? 0,
-                lastAccessedCourseId: Int(lastAccessedCourseIdStr) ?? 0
+                lastAccessedCourseId: lastAccessedCourseIdStr
             )
             Task { await analytics.logStudentInactivityEvent(data: event); DispatchQueue.main.async { result(nil) } }
 

@@ -9,6 +9,7 @@ import 'models/module_completion_event.dart';
 import 'models/quiz_submission_event.dart';
 import 'models/registration_event.dart';
 import 'models/student_inactivity_event.dart';
+import 'models/user_properties_event.dart';
 import 'adaptive_analytics_exception.dart';
 
 ///
@@ -26,7 +27,7 @@ import 'adaptive_analytics_exception.dart';
 /// );
 /// ```
 class AdaptiveAnalytics {
-  static final MethodChannel _channel = MethodChannel('adaptive_analytics');
+  static const MethodChannel _channel = MethodChannel('adaptive_analytics');
 
   AdaptiveAnalytics._();
 
@@ -71,6 +72,10 @@ class AdaptiveAnalytics {
   /// Logs a registration event.
   static Future<void> logRegistrationEvent(RegistrationEvent event) =>
       _log('logRegistrationEvent', event.toMap());
+
+  /// Logs a user properties event.
+  static Future<void> logUserPropertiesEvent(UserPropertiesEvent event) =>
+      _log('logUserPropertiesEvent', event.toMap());
 
   // ── Private helpers ────────────────────────────────────────────────────────
 

@@ -1,7 +1,5 @@
 package com.adaptive.analytics
 
-import android.os.Handler
-import android.os.Looper
 import com.adaptive.analytics.AdaptiveAnalytics
 import com.adaptive.analytics.events.AssignmentSubmissionEvent
 import com.adaptive.analytics.events.BadgeEarnedEvent
@@ -10,11 +8,15 @@ import com.adaptive.analytics.events.CourseEnrollmentEvent
 import com.adaptive.analytics.events.EnrollmentMethod
 import com.adaptive.analytics.events.GradeChangeEvent
 import com.adaptive.analytics.events.GradeStatus
+import com.adaptive.analytics.events.LoginEvent
+import com.adaptive.analytics.events.LoginMethod
 import com.adaptive.analytics.events.ModuleCompletionEvent
 import com.adaptive.analytics.events.ModuleCompletionState
 import com.adaptive.analytics.events.QuizSubmissionEvent
+import com.adaptive.analytics.events.RegistrationEvent
 import com.adaptive.analytics.events.StudentInactivityEvent
 import com.adaptive.analytics.events.SubmissionStatus
+import com.adaptive.analytics.events.UserType
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -163,6 +165,34 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
                         )
                     )
                     result.success(null)
+                }
+
+                "logLoginEvent" -> {
+                    AdaptiveAnalytics.logLoginEvent(
+                        LoginEvent(
+                            loginMethod = LoginMethod.valueOf(call.argument("loginMethod")!!),
+                            userId = call.argument("userId")!!,
+                        )
+                    )
+                    result.success(null)
+                }
+
+                "logRegistrationEvent" -> {
+                    AdaptiveAnalytics.logRegistrationEvent(
+                        RegistrationEvent(
+                            registrationMethod = LoginMethod.valueOf(call.argument("registrationMethod")!!),
+                            userId = call.argument("userId")!!,
+                            userName = call.argument("userName")!!,
+                            userMobile = call.argument("userMobile")!!,
+                            userType = UserType.valueOf(call.argument("userType")!!),
+                        )
+                    )
+                    result.success(null)
+                }
+
+                "logUserPropertiesEvent" -> {
+                    // UserPropertiesEvent is not yet available in the Android SDK.
+                    result.notImplemented()
                 }
 
                 else -> result.notImplemented()
