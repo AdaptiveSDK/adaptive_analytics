@@ -4,8 +4,10 @@ import 'models/badge_earned_event.dart';
 import 'models/course_completion_event.dart';
 import 'models/course_enrollment_event.dart';
 import 'models/grade_change_event.dart';
+import 'models/login_event.dart';
 import 'models/module_completion_event.dart';
 import 'models/quiz_submission_event.dart';
+import 'models/registration_event.dart';
 import 'models/student_inactivity_event.dart';
 import 'adaptive_analytics_exception.dart';
 
@@ -51,7 +53,8 @@ class AdaptiveAnalytics {
   /// Logs an assignment submission event.
   static Future<void> logAssignmentSubmissionEvent(
     AssignmentSubmissionEvent event,
-  ) => _log('logAssignmentSubmissionEvent', event.toMap());
+  ) =>
+      _log('logAssignmentSubmissionEvent', event.toMap());
 
   /// Logs a quiz submission event.
   static Future<void> logQuizSubmissionEvent(QuizSubmissionEvent event) =>
@@ -60,6 +63,14 @@ class AdaptiveAnalytics {
   /// Logs a course completion event.
   static Future<void> logCourseCompletionEvent(CourseCompletionEvent event) =>
       _log('logCourseCompletionEvent', event.toMap());
+
+  /// Logs a login event.
+  static Future<void> logLoginEvent(LoginEvent event) =>
+      _log('logLoginEvent', event.toMap());
+
+  /// Logs a registration event.
+  static Future<void> logRegistrationEvent(RegistrationEvent event) =>
+      _log('logRegistrationEvent', event.toMap());
 
   // ── Private helpers ────────────────────────────────────────────────────────
 

@@ -1,3 +1,8 @@
+## 1.0.8
+
+* Added `AdaptiveAnalytics.logLoginEvent` — log user login events.
+* Added `AdaptiveAnalytics.logRegistrationEvent` — log new user registration events.
+
 ## 1.0.6
 
 * Added iOS platform support (iOS 15.0+).
