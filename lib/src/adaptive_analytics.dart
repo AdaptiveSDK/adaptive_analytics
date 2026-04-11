@@ -9,7 +9,6 @@ import 'models/module_completion_event.dart';
 import 'models/quiz_submission_event.dart';
 import 'models/registration_event.dart';
 import 'models/student_inactivity_event.dart';
-import 'models/user_properties_event.dart';
 import 'adaptive_analytics_exception.dart';
 
 ///
@@ -54,8 +53,7 @@ class AdaptiveAnalytics {
   /// Logs an assignment submission event.
   static Future<void> logAssignmentSubmissionEvent(
     AssignmentSubmissionEvent event,
-  ) =>
-      _log('logAssignmentSubmissionEvent', event.toMap());
+  ) => _log('logAssignmentSubmissionEvent', event.toMap());
 
   /// Logs a quiz submission event.
   static Future<void> logQuizSubmissionEvent(QuizSubmissionEvent event) =>
@@ -74,8 +72,14 @@ class AdaptiveAnalytics {
       _log('logRegistrationEvent', event.toMap());
 
   /// Logs a user properties event.
-  static Future<void> logUserPropertiesEvent(UserPropertiesEvent event) =>
-      _log('logUserPropertiesEvent', event.toMap());
+  ///
+  /// Accepts a dynamic map so each client can pass any custom properties.
+  static Future<void> logUserPropertiesEvent(Map<String, dynamic> data) =>
+      _log('logUserPropertiesEvent', data);
+
+  /// Logs an app launch event. Called automatically by the native SDK on
+  /// initialization; you may also call it manually if needed.
+  static Future<void> logAppLaunchEvent() => _log('logAppLaunchEvent', {});
 
   // ── Private helpers ────────────────────────────────────────────────────────
 

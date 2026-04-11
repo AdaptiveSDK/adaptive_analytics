@@ -191,8 +191,15 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 }
 
                 "logUserPropertiesEvent" -> {
-                    // UserPropertiesEvent is not yet available in the Android SDK.
-                    result.notImplemented()
+                    @Suppress("UNCHECKED_CAST")
+                    val data = call.arguments<Map<String, Any>>() ?: emptyMap()
+                    AdaptiveAnalytics.logUserPropertiesEvent(data)
+                    result.success(null)
+                }
+
+                "logAppLaunchEvent" -> {
+                    AdaptiveAnalytics.logAppLaunchEvent()
+                    result.success(null)
                 }
 
                 else -> result.notImplemented()

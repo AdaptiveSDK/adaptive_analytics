@@ -17,4 +17,3 @@ export 'src/models/module_completion_event.dart';
 export 'src/models/quiz_submission_event.dart';
 export 'src/models/registration_event.dart';
 export 'src/models/student_inactivity_event.dart';
-export 'src/models/user_properties_event.dart';

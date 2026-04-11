@@ -1,3 +1,21 @@
+## 1.0.12
+
+* **`AdaptiveAnalytics.logUserPropertiesEvent`** – signature changed from the
+  fixed `UserPropertiesEvent` model to `Map<String, dynamic>`. Pass any custom
+  key–value pairs your integration needs. The `UserPropertiesEvent` Dart class
+  has been removed.
+* **`AdaptiveAnalytics.logAppLaunchEvent()`** – new method that fires an
+  `app-launch` event. The native SDKs also fire this automatically on
+  initialisation; call this manually only if you need an additional explicit
+  trigger.
+* **Android** – `logUserPropertiesEvent` handler in the Flutter plugin now
+  forwards the raw map directly to the native SDK.
+* **Android** – `InternalHttpClient` now logs a structured `→ REQUEST` /
+  `← RESPONSE` block for every HTTP call. Gated by debug mode.
+* **Android** – removed `mavenLocal()` from plugin build configuration.
+* Bumped Android native dependency pin to `adaptive-analytics:1.0.11`.
+* Bumped iOS `AdaptiveAnalytics` CocoaPod dependency pin to `~> 1.0.12`.
+
 ## 1.0.8
 
 * Added `AdaptiveAnalytics.logUserPropertiesEvent` — log user profile properties (year, FCM token, user type, school language, registration date, parent ID).

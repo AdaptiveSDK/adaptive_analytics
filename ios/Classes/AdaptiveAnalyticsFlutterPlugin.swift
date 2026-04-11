@@ -39,15 +39,11 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             Task { await analytics.logLoginEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
         case "logUserPropertiesEvent":
-            let event = UserPropertiesEvent(
-                yearId:           (args["yearId"]           as? NSNumber)?.intValue ?? 0,
-                fcmToken:          args["fcmToken"]          as? String ?? "",
-                userType:          args["userType"]          as? String ?? "",
-                schoolLangType:    args["schoolLangType"]    as? String ?? "",
-                registrationDate: (args["registrationDate"]  as? NSNumber)?.intValue ?? 0,
-                parentId:         (args["parentId"]          as? NSNumber)?.intValue ?? 0
-            )
-            Task { await analytics.logUserPropertiesEvent(data: event); DispatchQueue.main.async { result(nil) } }
+            let data = args
+            Task { await analytics.logUserPropertiesEvent(data: data); DispatchQueue.main.async { result(nil) } }
+
+        case "logAppLaunchEvent":
+            Task { DispatchQueue.main.async { result(nil) } }
 
         case "logCourseEnrollmentEvent":
             guard let courseIdStr         = args["courseId"]         as? Int,
