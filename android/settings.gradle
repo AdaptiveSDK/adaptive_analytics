@@ -1,0 +1,2 @@
+include ':adaptive_analytics'
+project(':adaptive_analytics').projectDir = new File('/Users/mohamed.haloka/StudioProjects/adaptive_android_sdk/adaptive_analytics')

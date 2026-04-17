@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         const AdaptiveUser(
           userId: '1001',
           userName: 'Jane Doe',
-          userEmail: 'jane@example.com',
+          userEmail: 'jane@example.com', phoneNumber: '24234235345',
         ),
       );
       setState(() {
