@@ -4,7 +4,7 @@ import AdaptiveAnalytics
 
 public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
 
-    private let analytics = AdaptiveAnalytics()
+    private let analytics = AdaptiveAnalytics.shared
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(
@@ -43,8 +43,7 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             Task { await analytics.logUserPropertiesEvent(data: data); DispatchQueue.main.async { result(nil) } }
 
         case "logAppLaunchEvent":
-            Task { DispatchQueue.main.async { result(nil) } }
-
+            Task { await analytics.logAppLaunchEvent(); DispatchQueue.main.async { result(nil) } }
         case "logCourseEnrollmentEvent":
             guard let courseIdStr         = args["courseId"]         as? Int,
                   let courseName          = args["courseName"]        as? String,
