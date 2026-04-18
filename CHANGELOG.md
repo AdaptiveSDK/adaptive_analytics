@@ -1,3 +1,8 @@
+## 1.0.21
+
+* Bumped iOS `AdaptiveAnalytics` CocoaPod dependency pin to `~> 1.0.21`.
+* Bumped Android native dependency pin to `adaptive-analytics:1.0.21`.
+
 ## 1.0.20
 
 * Bumped iOS `AdaptiveAnalytics` CocoaPod dependency pin to `~> 1.0.20`.
