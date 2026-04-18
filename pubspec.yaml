@@ -3,7 +3,7 @@ description: >-
   Flutter plugin for the Adaptive SDK Analytics module. Logs learning events
   (badge earnings, quiz submissions, grade changes, course enrolments, etc.)
   to the Adaptive e-learning platform.
-version: 1.0.21
+version: 1.0.22
 homepage: https://github.com/AdaptiveSDK/adaptive_analytics
 repository: https://github.com/AdaptiveSDK/adaptive_analytics
 issue_tracker: https://github.com/AdaptiveSDK/adaptive_analytics/issues
