@@ -33,6 +33,9 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(binding.binaryMessenger, "adaptive_analytics")
         channel.setMethodCallHandler(this)
+        // Eagerly initialize so the login listener is registered before login() is called.
+        // This ensures app-launch fires even when the user is already authenticated.
+        AdaptiveAnalytics.initialize()
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -190,10 +193,10 @@ class AdaptiveAnalyticsFlutterPlugin : FlutterPlugin, MethodCallHandler {
                     result.success(null)
                 }
 
-                "logUserPropertiesEvent" -> {
+                "setUserProperties" -> {
                     @Suppress("UNCHECKED_CAST")
                     val data = call.arguments<Map<String, Any>>() ?: emptyMap()
-                    AdaptiveAnalytics.logUserPropertiesEvent(data)
+                    AdaptiveAnalytics.setUserProperties(data)
                     result.success(null)
                 }
 

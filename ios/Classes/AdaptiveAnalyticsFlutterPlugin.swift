@@ -13,6 +13,9 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
         )
         let instance = AdaptiveAnalyticsFlutterPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
+        // Eagerly initialize so the login listener is registered before login() is called.
+        // This ensures app-launch fires even when the user is already authenticated.
+        AdaptiveAnalytics.initialize()
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -38,9 +41,9 @@ public class AdaptiveAnalyticsFlutterPlugin: NSObject, FlutterPlugin {
             let event = LoginEvent(userId: Int(userId) ?? 0, loginMethod: loginMethod == "google" ? LoginMethod.google : loginMethod == "x" ? LoginMethod.x : loginMethod == "apple" ? LoginMethod.apple : loginMethod == "facebook" ? LoginMethod.facebook : LoginMethod.emailAndPassword)
             Task { await analytics.logLoginEvent(data: event); DispatchQueue.main.async { result(nil) } }
 
-        case "logUserPropertiesEvent":
+        case "setUserProperties":
             let data = args
-            Task { await analytics.logUserPropertiesEvent(data: data); DispatchQueue.main.async { result(nil) } }
+            Task { await analytics.setUserProperties(data: data); DispatchQueue.main.async { result(nil) } }
 
         case "logAppLaunchEvent":
             Task { await analytics.logAppLaunchEvent(); DispatchQueue.main.async { result(nil) } }

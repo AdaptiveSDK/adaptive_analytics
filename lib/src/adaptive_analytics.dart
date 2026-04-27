@@ -71,11 +71,12 @@ class AdaptiveAnalytics {
   static Future<void> logRegistrationEvent(RegistrationEvent event) =>
       _log('logRegistrationEvent', event.toMap());
 
-  /// Logs a user properties event.
+  /// Sets user properties on the backend.
   ///
-  /// Accepts a dynamic map so each client can pass any custom properties.
-  static Future<void> logUserPropertiesEvent(Map<String, dynamic> data) =>
-      _log('logUserPropertiesEvent', data);
+  /// Accepts a dynamic map of any custom properties. The data is sent wrapped
+  /// in a `json` key as required by the backend.
+  static Future<void> setUserProperties(Map<String, dynamic> data) =>
+      _log('setUserProperties', data);
 
   /// Logs an app launch event. Called automatically by the native SDK on
   /// initialization; you may also call it manually if needed.
