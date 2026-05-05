@@ -49,7 +49,7 @@ android {
 }
 
 dependencies {
-    implementation "io.github.adaptivesdk:adaptive-analytics:1.0.24"
+    implementation "io.github.adaptivesdk:adaptive-analytics:1.0.27"
     // adaptive-analytics already transitively pulls in adaptive-core
     implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
 }
